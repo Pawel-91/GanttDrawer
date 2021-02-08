@@ -14,6 +14,7 @@ namespace MiniGantt
     {
         private readonly IShapeDrawer<DrawingContext, IRectangleShape> _rectDrawer;
         private readonly IShapeDrawer<DrawingContext, IArrowShape> _arrowDrawer;
+        private bool _temp = false;
 
         public MainWindow(IShapeDrawer<DrawingContext, IRectangleShape> rectDrawer, IShapeDrawer<DrawingContext, IArrowShape> arrowDrawer)
         {
@@ -21,30 +22,40 @@ namespace MiniGantt
 
             _rectDrawer = rectDrawer;
             _arrowDrawer = arrowDrawer;
+        }
+
+        private void AddRectButton_Click(object sender, RoutedEventArgs e)
+        {
+            DGroup.Children.Clear();
 
             LegRectangle background = new LegRectangle(0, 0, 100, 100)
             {
                 ShapeColor = Brushes.Transparent
             };
 
-            using var drawingContext = DGroup.Append();
-            rectDrawer.Draw(drawingContext, background);
-        }
-
-        private void AddRectButton_Click(object sender, RoutedEventArgs e)
-        {
             List<IRectangleShape> rectangles = new List<IRectangleShape>
             {
+                background,
                 new LegRectangle(40, 10, 20, 20, "shape1"),
                 new LegRectangle(0, 30, 20, 20, "shape2"),
-                //new LegRectangle(80, 30, 20, 20, "shape3")
             };
-
             List<IArrowShape> arrows = new List<IArrowShape>
             {
-                new Arrow(rectangles[1].Right, rectangles[0].Left),
-                //new Arrow(rectangles[0].Right, rectangles[2].Left)
+                new Arrow(rectangles[2].Right, rectangles[1].Left)
             };
+
+            if (_temp)
+            {
+                rectangles.Add(new LegRectangle(80, 30, 20, 20, "shape3")
+                {
+                    ShapeColor = Brushes.DarkRed,
+                    TextColor = Brushes.White
+                });
+                arrows.Add(new Arrow(rectangles[1].Right, rectangles[3].Left)
+                {
+                    ShapeColor = Brushes.Green
+                });
+            }
 
             var drawingContext = DGroup.Append();
 
@@ -59,6 +70,7 @@ namespace MiniGantt
             }
 
             drawingContext.Close();
+            _temp = true;
         }
     }
 }

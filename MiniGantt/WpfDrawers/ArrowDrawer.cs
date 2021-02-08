@@ -39,7 +39,7 @@ namespace MiniGantt.WpfDrawers
             Vector vector = lineStartPoint - lineEndPoint;  // create a vector containing deference between start and end points 
             Vector thicknessCorrection = CalculateThicknessCorrection(lineStartPoint, lineEndPoint, arrow.Thickness);
 
-            vector.Normalize();                             // normalization creates unit vector - we need to keep vectors orientation (without value, which is equal to line's length)
+            vector.Normalize();                                   // normalization creates unit vector - we need to keep vectors orientation (without value, which is equal to line's length)
             vector *= arrow.HeadLength;                           // vector * scalar - defines the new length of the vector (which we use to build our arrow's head)
 
             PathFigure headFigure = new PathFigure();

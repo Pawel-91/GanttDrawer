@@ -8,8 +8,8 @@ using NUnit.Framework;
 
 namespace MiniGanttTests.WpfDrawers
 {
-    [TestFixture]
-    public class LegRectTests
+    [TestFixture(Description ="Tests for WpfDrawer.LegRectDrawer")]
+    public class LegRectDrawerTests
     {
         private DrawingGroup drawingGroup;
 
@@ -19,7 +19,6 @@ namespace MiniGanttTests.WpfDrawers
             drawingGroup = new DrawingGroup();
             drawingGroup.Children.Clear();
         }
-
 
         [Test]
         public void DrawRectangle_Test()

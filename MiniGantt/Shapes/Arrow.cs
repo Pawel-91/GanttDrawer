@@ -16,7 +16,6 @@ namespace MiniGantt.Shapes
         public Brush ShapeColor { get; set; } = Brushes.Black;
 
         public double HeadLength { get; set; } = 5;
-
         public double HeadAngle { get; set; } = 30;
         public Point Start { get => _start; set => _start = value; }
         public Point End { get => _end; set => _end = value; }

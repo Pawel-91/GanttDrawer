@@ -9,20 +9,23 @@ namespace MiniGantt.WpfDrawers
     public class LegRectDrawer : IShapeDrawer<DrawingContext, IRectangleShape>
     {
         public void Draw(DrawingContext context, IRectangleShape legRectangle)
-        { 
-                RectangleGeometry rectangle = new RectangleGeometry(legRectangle.Rect);
-          
-                GeometryDrawing geometryDrawing = new GeometryDrawing(
-                    legRectangle.ShapeColor,
-                    legRectangle.Border,
-                    rectangle);
+        {
+            RectangleGeometry rectangle = new RectangleGeometry(legRectangle.Rect);
 
-                context.DrawDrawing(geometryDrawing);
+            Pen border = new Pen(legRectangle.Border.Brush, legRectangle.Border.Thickness);     // Freezing for better performance
+            border.Freeze();
 
-                if (!string.IsNullOrWhiteSpace(legRectangle.Text))
-                {
-                    DrawText(context, legRectangle);
-                }
+            GeometryDrawing geometryDrawing = new GeometryDrawing(
+                legRectangle.ShapeColor,
+                border,
+                rectangle);
+
+            context.DrawDrawing(geometryDrawing);
+
+            if (!string.IsNullOrWhiteSpace(legRectangle.Text))
+            {
+                DrawText(context, legRectangle);
+            }
         }
 
         private void DrawText(DrawingContext context, IRectangleShape rectangle)
